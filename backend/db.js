@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const mongoURI = "mongodb://localhost:27017"
+const mongoURI = "mongodb://localhost:27017/iplanner?"
 
 //connect to mongo db 
 const connectToMongo = () => {
