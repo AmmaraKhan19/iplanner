@@ -5,10 +5,11 @@ const User = require('../models/User'); // to import User schema from model
 const { body, validationResult } = require('express-validator'); // to validate users
 const bcrypt = require('bcryptjs'); // to use hash and salt to encrypt user password
 var jwt = require('jsonwebtoken'); // to create json tockens for secure client-server connection
-
+const dotenv = require('dotenv'); // to use env variables saved in hidden files like .env.local
+dotenv.config();
 
 // Secret key
-const JWT_secret = 'My-SeCrEt_KeY&fOr$UsEr*ToKeN';
+const JWT_secret = `${process.env.SECRET_KEY}`;
 
 
 //Create a User using: POST "/api/auth/createuser". Dosn't require authentication
@@ -47,6 +48,8 @@ router.post('/createuser', [
                 id :user.id
             }
         }
+
+        // assign token to user to identify
         const authtoken = jwt.sign(data, JWT_secret);
         res.json({authtoken})
     }
