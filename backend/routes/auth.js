@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs'); // to use hash and salt to encrypt user pass
 var jwt = require('jsonwebtoken'); // to create json tokens for secure client-server connection
 const dotenv = require('dotenv'); // to use env variables saved in hidden files like .env.local
 dotenv.config();
-var fetchuser = require('../middleware/fetchuser');
+var fetchuser = require('../middleware/fetchuser'); // to fetch user id from jwt token and use it
 
 // get the Secret key from .env.local
 const JWT_secret = `${process.env.SECRET_KEY}`;
@@ -84,7 +84,7 @@ router.post('/login', [
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    // destructuring
+    // destructuring the requested body
     const {email, password} = req.body;
     // try to retrieve the user from provided email provided
     try {
