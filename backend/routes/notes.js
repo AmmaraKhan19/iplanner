@@ -17,7 +17,7 @@ const { body, validationResult } = require('express-validator'); // to validate 
 /*------------------------------------------- GET ALL NOTES ENDPOINT -------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------*/
 
-// Get all notes of a user using: GET "/api/notes/fetchallnotes". no authentication required
+// Get all notes of a user using: GET "/api/notes/fetchallnotes". login required
 
 router.get('/fetchallnotes', fetchuser, async (req, res)=>{
     // try to retrieve the user notes by id from the jwt token
@@ -37,7 +37,7 @@ router.get('/fetchallnotes', fetchuser, async (req, res)=>{
 /*--------------------------------------------- ADD NOTES ENDPOINT ---------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------*/
 
-// Add new notes using: POST "/api/notes/addnote". no authentication required
+// Add new notes using: POST "/api/notes/addnote". login required
 
 router.post('/addnote', fetchuser, [
     body('title', 'Enter a title').isLength({ min: 5 }), // minimum length of  title
@@ -66,4 +66,44 @@ router.post('/addnote', fetchuser, [
         res.status(500).send('Internal Server Error');
    }
 })
+
+/*------------------------------------------------ ROUTE 3 -----------------------------------------------------*/
+/*-------------------------------------------- UPDATE NOTE ENDPOINT --------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------*/
+
+// Update note using: POST "/api/notes/updatenote". login required
+
+router.put('/updatenote/:id', fetchuser, async (req, res)=>{
+    const {title, description, tag} = req.body;
+    // create new note object
+    const newnote = {};
+    if(title) {
+        newnote.title = title;
+    }
+    if(description) {
+        newnote.description = description;
+    }
+    if(tag) {
+        newnote.tag = tag;
+    }
+    // get the note to update and update it
+    let note = await Note.findById(req.params.id);
+    // if note not found
+    if(!note){
+        return res.status(404).send('Not Found');
+    }
+    // if user id is not same as id from body
+    if(note.user.toString() != req.user.id){
+        return res.status(401).send('Action not Allowed');
+    }
+    // If it is the same user then update the note
+    note = await Note.findByIdAndUpdate(req.params.id, {$set: newnote}, {new: true});
+    res.json(note);
+})
+
+/*------------------------------------------------ ROUTE 4 -----------------------------------------------------*/
+/*-------------------------------------------- DELETE NOTE ENDPOINT --------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------*/
+
+
 module.exports = router;
