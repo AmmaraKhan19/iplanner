@@ -1,0 +1,2 @@
+react-router-dom # to create clientside routers
+concurrently # to run multiple servers/commands at the same time, use npm install -g package name

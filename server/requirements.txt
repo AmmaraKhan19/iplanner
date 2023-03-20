@@ -1,0 +1,8 @@
+express # to create backend
+dotenv # to use environment variables
+express-validator # to validate user through id
+mongoose # to connect to mongoose db
+jsonwebtoken # to generate auth-token
+bcrypt # for password protection
+nodemon # to run server
+# install the packages using npm i packagename
