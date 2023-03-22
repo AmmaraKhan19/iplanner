@@ -15,13 +15,15 @@ function App() {
       <Router>
         {/* enables for navbar to be showed/accessible on all routes */}
         <Navbar/>
-        {/* Creating routes */}
-        <Routes>
-            {/* Route for home page */}
-            <Route element={<Home />} exact path="/" />
-            {/* Route for about page */}
-            <Route element={<About />} exact path="/about" />
-          </Routes>
+        <div className="container">
+          {/* Creating routes */}
+          <Routes>
+              {/* Route for home page */}
+              <Route element={<Home />} exact path="/" />
+              {/* Route for about page */}
+              <Route element={<About />} exact path="/about" />
+            </Routes>
+        </div>
       </Router>
     </NoteState>
   </>
