@@ -17,7 +17,7 @@ function App() {
         <Navbar/>
         <div className="container">
           {/* Creating routes */}
-          <Routes>
+            <Routes>
               {/* Route for home page */}
               <Route element={<Home />} exact path="/" />
               {/* Route for about page */}
