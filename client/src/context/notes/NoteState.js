@@ -22,6 +22,51 @@ const NoteState = (props)=>{
           "tag": "personal",
           "date": "2023-03-19T15:10:43.482Z",
           "__v": 0
+        },
+        {
+          "_id": "641726115bcc7b71a2003085",
+          "user": "641177066223b40fbf4b13a5",
+          "title": "Wake Up Please",
+          "description": "Abbe uth bhi ja yaar",
+          "tag": "personal",
+          "date": "2023-03-19T15:11:13.047Z",
+          "__v": 0
+        },
+        {
+          "_id": "641726455bcc7b71a2003088",
+          "user": "641177066223b40fbf4b13a5",
+          "title": "Wake Up Please",
+          "description": "Tum ko 6 uthne bola",
+          "tag": "personal",
+          "date": "2023-03-19T15:12:05.106Z",
+          "__v": 0
+        },
+        {
+          "_id": "641726625bcc7b71a200308a",
+          "user": "641177066223b40fbf4b13a5",
+          "title": "Wake Up by god",
+          "description": "Tum ko 6 uthne bola manta",
+          "tag": "personal",
+          "date": "2023-03-19T15:12:34.770Z",
+          "__v": 0
+        },
+        {
+          "_id": "6417282eefea13cbda5cc290",
+          "user": "641177066223b40fbf4b13a5",
+          "title": "Wake Up by god",
+          "description": "Tum ko 6 uthne bola manta",
+          "tag": "personal",
+          "date": "2023-03-19T15:20:14.553Z",
+          "__v": 0
+        },
+        {
+          "_id": "6417295befea13cbda5cc294",
+          "user": "641177066223b40fbf4b13a5",
+          "title": "Wake Up by god paleeaassee",
+          "description": "Tum ko 6 uthne bola manta",
+          "tag": "personal",
+          "date": "2023-03-19T15:25:15.356Z",
+          "__v": 0
         }
       ]
 
