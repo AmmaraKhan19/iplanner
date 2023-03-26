@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar"; // to use navbar component
 import { Home } from "./components/Home"; // to use home component
 import { About } from "./components/About"; // to use about component
 import NoteState from "./context/notes/NoteState"; // to enable notestate context for all routes
+import Alert from "./components/Alert"; // use alert component to display alert messages
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
       <Router>
         {/* enables for navbar to be showed/accessible on all routes */}
         <Navbar/>
+        {/* display alert message*/}
+        <Alert message="This is an alert message" />
         <div className="container">
           {/* Creating routes */}
             <Routes>
