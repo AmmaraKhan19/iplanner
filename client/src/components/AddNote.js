@@ -6,17 +6,19 @@ const AddNote = () => {
      // destructuring
      const { addNote } = context;
      // create function to add note
-     const handleAddNote = (e)=>{
+     const handleAddNote = (e) => {
           // to prevent page reload
           e.preventDefault();
           // to take user input
           addNote(note.title, note.description, note.tag);
      }
-     // onchange function toset user changes
-     const [note, setNote] = useState({title: "", description: "", tag: ""})
-     const onchange = (e) =>{
-          setNote({...note, [e.target.name]: e.target.value });
+     // onchange function to set user changes
+     const [note, setNote] = useState({ title: "", description: "", tag: "" })
+     const onchange = (e) => {
+          setNote({ ...note, [e.target.name]: e.target.value });
      }
+     // note tags options
+     const options = ['General', 'Personal', 'Learning', 'Fun', 'Gaming'];
      return (
           <div>
                <div className="container my-3">
@@ -31,15 +33,17 @@ const AddNote = () => {
                               <input type="text" className="form-control" id="description" name="description" onChange={onchange} />
                          </div>
                          <div className="mb-3">
-                              <label className="form-label" htmlFor="tag">Tag</label>
-                              <select id='tag'>
-                                   <option name="general" value="general" defaultValue="general">General</option>
-                                   <option name="personal" value="personal">Personal</option>
-                                   <option name="learning" value="learning">Learning</option>
-                                   <option name="personal" value="personal">Personal</option>
+                              <label htmlFor="tag" className="form-label" >Tag: </label>
+                              <select id='tag' name='tag' onChange={onchange} >
+                                   <option>Tags</option>
+                                   {options.map((option, index) => {
+                                        return <option key={index} >
+                                             {option}
+                                        </option>
+                                   })}
                               </select>
                          </div>
-                         <button type="submit" className="btn btn-primary" onClick={handleAddNote}>Submit</button>
+                         <button type="submit" className="btn btn-primary" onClick={handleAddNote}>Add Note</button>
                     </form>
                </div>
           </div>

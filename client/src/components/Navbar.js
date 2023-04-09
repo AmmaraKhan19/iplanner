@@ -1,11 +1,8 @@
-import React, { useEffect} from 'react';
+import React from 'react';
 import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
-     let location = useLocation();
-     useEffect(() => {
-       console.log(location.pathname);
-     }, [location]);
+     let location = useLocation(); // to switch between application tabs
   return (
      <nav className="navbar navbar-dark navbar-expand-lg bg-dark">
           <div className="container-fluid">
