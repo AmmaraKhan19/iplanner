@@ -5,4 +5,5 @@ mongoose # to connect to mongoose db
 jsonwebtoken # to generate auth-token
 bcrypt # for password protection
 nodemon # to run server
-# install the packages using npm i packagename
+cors # to fetch api from client side
+# install the packages using npm i packagename or npm install packagename
