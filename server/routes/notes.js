@@ -40,8 +40,9 @@ router.get('/fetchallnotes', fetchuser, async (req, res)=>{
 // Add new notes using: POST "/api/notes/addnote". login required
 
 router.post('/addnote', fetchuser, [
-    body('title', 'Enter a title').isLength({ min: 5 }), // minimum length of  title
-    body('description', 'Provide a description').isLength({ min: 15 }), // minimum length of  description 
+    body('title', 'Enter a title').isLength({ min: 3 }), // minimum length of title
+    body('description', 'Provide a description').isLength({ min: 3 }), // minimum length of description
+    body('tag', 'Enter a tag').isLength({ min: 2 }), // minimum length of tag
 ], async (req, res)=>{
     // try to add a note by user in db through id from the jwt token
     try {

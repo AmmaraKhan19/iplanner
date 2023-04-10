@@ -31,6 +31,7 @@ const NoteState = (props) => {
     const response = await fetch(`${host}/api/notes/addnote`, {
       method: "POST",
       headers: {
+        'Accept':'application/json',
         "Content-Type": "application/json",
         "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQxMTc3MDY2MjIzYjQwZmJmNGIxM2E1In0sImlhdCI6MTY3OTIzOTM1N30.a6kIBr1gXckYDNnDuPbb3O7rvPLu_4ZOkwPWcs0pY2E"
       },
@@ -59,9 +60,9 @@ const NoteState = (props) => {
         "Content-Type": "application/json",
         "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQxMTc3MDY2MjIzYjQwZmJmNGIxM2E1In0sImlhdCI6MTY3OTIzOTM1N30.a6kIBr1gXckYDNnDuPbb3O7rvPLu_4ZOkwPWcs0pY2E"
       },
-      body: JSON.stringify(id), 
     });
     const json = response.json();
+
     // delete note client side
     console.log("Deleting note with id " + id);
     const newNotes = notes.filter((note) => { return note._id !== id });
@@ -79,6 +80,7 @@ const NoteState = (props) => {
       body: JSON.stringify({title, description, tag}), 
     });
     const json = response.json();
+
 
     // to edit on client side
     console.log("Updating note with id " + id);

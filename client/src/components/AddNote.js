@@ -17,8 +17,7 @@ const AddNote = () => {
      const onchange = (e) => {
           setNote({ ...note, [e.target.name]: e.target.value });
      }
-     // note tags options
-     const options = ['General', 'Personal', 'Learning', 'Fun', 'Gaming'];
+     
      return (
           <div>
                <div className="container my-3">
@@ -34,14 +33,7 @@ const AddNote = () => {
                          </div>
                          <div className="mb-3">
                               <label htmlFor="tag" className="form-label" >Tag: </label>
-                              <select id='tag' name='tag' onChange={onchange} >
-                                   <option>Tags</option>
-                                   {options.map((option, index) => {
-                                        return <option key={index} >
-                                             {option}
-                                        </option>
-                                   })}
-                              </select>
+                              <input type="text" className="form-control" id="tag" name="tag" onChange={onchange} />
                          </div>
                          <button type="submit" className="btn btn-primary" onClick={handleAddNote}>Add Note</button>
                     </form>
@@ -50,4 +42,4 @@ const AddNote = () => {
      )
 }
 
-export default AddNote
+export default AddNote;
