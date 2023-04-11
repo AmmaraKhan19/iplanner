@@ -6,23 +6,29 @@ import NoteItem from './NoteItem';
 const Notes = () => {
      const context = useContext(noteContext);
      // destructuring
-     const { notes, getNotes } = context;
+     const { notes, getNotes, editNote } = context;
      useEffect(() => {
           getNotes();
           // eslint-disable-next-line
      }, [])
      // to use toggle
-     const ref = useRef(null)
-     const [note, setNote] = useState({ etitle: "", edescription: "", etag: "" })
+     const ref = useRef(null);
+     // to close modal window
+     const refClose = useRef(null);
+     // destructuring
+     const [note, setNote] = useState({id:"", etitle: "", edescription: "", etag: "" });
      const updateNote = (currentnote) => {
           ref.current.click();
-          setNote({etitle: currentnote.title,
+          setNote({id:currentnote._id,
+               etitle: currentnote.title,
                edescription: currentnote.description,
                etag: currentnote.tag});
      }
      // create function to add note
      const handleNote = (e) => {
-          console.log("Updating the note ...")
+          editNote(note.id, note.etitle, note.edescription, note.etag)
+          // to close modal on clicking update
+          refClose.current.click();
           // to prevent page reload
           e.preventDefault();
      }
@@ -62,7 +68,7 @@ const Notes = () => {
                                    </form>
                               </div>
                               <div className="modal-footer">
-                                   <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                   <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                    <button type="button" className="btn btn-primary" onClick={handleNote}>Update</button>
                               </div>
                          </div>
@@ -71,6 +77,9 @@ const Notes = () => {
                {/* Show all user notes */}
                <div className="row my-3">
                     <h1>Your Notes</h1>
+                    {/* <div className='container my-2'>
+                         {notes.length===0 && 'You have no notes to display'}
+                    </div> */}
                     {notes.map((note) => {
                          return <NoteItem note={note} updateNote={updateNote} key={note._id} />
                     })}

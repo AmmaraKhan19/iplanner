@@ -29,17 +29,17 @@ const NoteState = (props) => {
   const addNote = async (title, description, tag) => {
     // Fetch API
     const response = await fetch(`${host}/api/notes/addnote`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        'Accept':'application/json',
         "Content-Type": "application/json",
         "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQxMTc3MDY2MjIzYjQwZmJmNGIxM2E1In0sImlhdCI6MTY3OTIzOTM1N30.a6kIBr1gXckYDNnDuPbb3O7rvPLu_4ZOkwPWcs0pY2E"
       },
       body: JSON.stringify({title, description, tag}), 
     });
-    const json = response.json();
+    const json = await response.json();
+    console.log(json);
     // add note on client side
-    console.log("Adding a new note");
+    console.log("Adding a new note")
     const note = {
       "_id": "641569a133910cbc6c3c6184",
       "user": "641177066223b40fbf4b13a5",
@@ -55,16 +55,16 @@ const NoteState = (props) => {
   const deleteNote = async (id) => {
     // Fetch API
     const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
         "Content-Type": "application/json",
         "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQxMTc3MDY2MjIzYjQwZmJmNGIxM2E1In0sImlhdCI6MTY3OTIzOTM1N30.a6kIBr1gXckYDNnDuPbb3O7rvPLu_4ZOkwPWcs0pY2E"
       },
     });
-    const json = response.json();
-
+    const json = await response.json();
+    console.log(json);
     // delete note client side
-    console.log("Deleting note with id " + id);
+    console.log("Note deleted")
     const newNotes = notes.filter((note) => { return note._id !== id });
     setNotes(newNotes);
   }
@@ -72,7 +72,7 @@ const NoteState = (props) => {
   const editNote = async (id, title, description, tag) => {
     // Fetch API
     const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
-      method: "PUT",
+      method: 'PUT',
       headers: {
         "Content-Type": "application/json",
         "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQxMTc3MDY2MjIzYjQwZmJmNGIxM2E1In0sImlhdCI6MTY3OTIzOTM1N30.a6kIBr1gXckYDNnDuPbb3O7rvPLu_4ZOkwPWcs0pY2E"
@@ -80,18 +80,20 @@ const NoteState = (props) => {
       body: JSON.stringify({title, description, tag}), 
     });
     const json = response.json();
-
-
+    console.log(json);
     // to edit on client side
-    console.log("Updating note with id " + id);
+    console.log("Note edited")
+    const updatednote = JSON.parse(JSON.stringify(notes));
     for (let index = 0; index < notes.length; index++) {
-      const element = notes[index];
+      const element = updatednote[index];
       if (element._id === id) {
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
+        updatednote[index].title = title;
+        updatednote[index].description = description;
+        updatednote[index].tag = tag;
+      break;
       }
     }
+    setNotes(updatednote);
   }
 
   return (
