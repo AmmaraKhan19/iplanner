@@ -6,6 +6,8 @@ import { Home } from "./components/Home"; // to use home component
 import { About } from "./components/About"; // to use about component
 import NoteState from "./context/notes/NoteState"; // to enable notestate context for all routes
 import Alert from "./components/Alert"; // use alert component to display alert messages
+import Login from "./components/Login";
+import Signup from "./components/Signup";
 
 function App() {
   return (
@@ -25,6 +27,10 @@ function App() {
               <Route element={<Home />} exact path="/" />
               {/* Route for about page */}
               <Route element={<About />} exact path="/about" />
+              {/* Route for login page */}
+              <Route element={<Login />} exact path="/login" />
+              {/* Route for signup page */}
+              <Route element={<Signup />} exact path="/signup" />
             </Routes>
         </div>
       </Router>

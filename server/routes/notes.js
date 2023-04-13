@@ -24,7 +24,6 @@ router.get('/fetchallnotes', fetchuser, async (req, res)=>{
     try {
         const notes = await Note.find({user: req.user.id});
         res.json(notes);
-        
     } 
     // if internal errors occur, display them
     catch (error) {
