@@ -5,9 +5,9 @@ const User = require('../models/User'); // to import User schema from model
 const { body, validationResult } = require('express-validator'); // to validate users
 const bcrypt = require('bcryptjs'); // to use hash and salt to encrypt user password
 var jwt = require('jsonwebtoken'); // to create json tokens for secure client-server connection
+var fetchuser = require('../middleware/fetchuser'); // to fetch user id from jwt token and use it
 const dotenv = require('dotenv'); // to use env variables saved in hidden files like .env.local
 dotenv.config();
-var fetchuser = require('../middleware/fetchuser'); // to fetch user id from jwt token and use it
 
 // get the Secret key from .env.local
 const JWT_secret = `${process.env.SECRET_KEY}`;
@@ -35,14 +35,14 @@ router.post('/createuser', [
     // if errors, return bad request
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ success, errors: errors.array() });
     }
     // try and catch to avoid unneccessory problems/errors
     try {
         // check if user email exists already
         let user = await User.findOne({ email: req.body.email });
         if (user) {
-            return res.status(400).json({ error: 'User with this email already exists' })
+            return res.status(400).json({ success, error: 'User with this email already exists' })
         }
         // adding hash and salt to protect user password
         const salt = await bcrypt.genSalt(10); // create salt
@@ -85,7 +85,7 @@ router.post('/login', [
     // if errors, return bad request and errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ success, errors: errors.array() });
     }
     // destructuring the requested body
     const { email, password } = req.body;
@@ -94,14 +94,12 @@ router.post('/login', [
         let user = await User.findOne({ email });
         //  show error if email is wrong
         if (!user) {
-            success = false;
             return res.status(400).json({ success, errors: "Enter correct credentials" });
         }
         //  compare the password with saved one
         const password_compare = await bcrypt.compare(password, user.password);
         //  if compared passwords are not same
         if (!password_compare) {
-            success = false;
             return res.status(400).json({ success, errors: "Enter correct credentials" });
         }
         // if compared passwords match then
