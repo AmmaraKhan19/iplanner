@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = (props) => {
      const backend = "http://localhost:5000";
      let navigate = useNavigate();
-     
-     const [credentials, setcredentials] = useState({email: "", password: ""});
+
+     const [credentials, setcredentials] = useState({ email: "", password: "" });
      const handleSubmit = async (e) => {
           e.preventDefault();
           // Fetch API for login
@@ -14,16 +14,17 @@ const Login = () => {
                headers: {
                     "Content-Type": "application/json"
                },
-               body: JSON.stringify({email: credentials.email, password: credentials.password}),
+               body: JSON.stringify({ email: credentials.email, password: credentials.password }),
           });
           const user = await response.json();
-          if (user.success){
+          if (user.success) {
                // save the auth-token and redirect
                localStorage.setItem('token', user.authtoken);
                navigate("/");
+               props.showAlert("Logged in Successfully!", "success");
           }
-          else{
-               alert("Wrong credentials")
+          else {
+               props.showAlert("Invalid credentials", "warning");
           }
      }
 
@@ -48,4 +49,4 @@ const Login = () => {
      )
 }
 
-export default Login
+export default Login;

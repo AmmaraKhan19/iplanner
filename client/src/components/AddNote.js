@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import noteContext from '../context/notes/noteContext'; // to use notecontext
 
-const AddNote = () => {
+const AddNote = (props) => {
      const context = useContext(noteContext);
      // destructuring
      const { addNote } = context;
@@ -13,6 +13,7 @@ const AddNote = () => {
           // to take user input
           addNote(note.title, note.description, note.tag);
           setNote({ title: "", description: "", tag: "" });
+          props.showAlert("Note added Successfully!", "success");
      }
      // onchange function to set user changes
      const onchange = (e) => {

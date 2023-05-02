@@ -3,7 +3,7 @@ import noteContext from '../context/notes/noteContext'; // to use notecontext
 import AddNote from './AddNote';
 import NoteItem from './NoteItem';
 
-const Notes = () => {
+const Notes = (props) => {
      const context = useContext(noteContext);
      // destructuring
      const { notes, getNotes, editNote } = context;
@@ -16,21 +16,25 @@ const Notes = () => {
      // to close modal window
      const refClose = useRef(null);
      // destructuring
-     const [note, setNote] = useState({id:"", etitle: "", edescription: "", etag: "" });
+     const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" });
+     // Update note
      const updateNote = (currentnote) => {
           ref.current.click();
-          setNote({id:currentnote._id,
+          setNote({
+               id: currentnote._id,
                etitle: currentnote.title,
                edescription: currentnote.description,
-               etag: currentnote.tag});
+               etag: currentnote.tag
+          });
      }
-     // create function to add note
+     // create function to show updated note
      const handleNote = (e) => {
           editNote(note.id, note.etitle, note.edescription, note.etag)
           // to close modal on clicking update
           refClose.current.click();
           // to prevent page reload
           e.preventDefault();
+          props.showAlert("Note Updated Successfully!", "success");
      }
      // onchange function to set user changes
      const onchange = (e) => {
@@ -39,7 +43,7 @@ const Notes = () => {
 
      return (
           <>
-               <AddNote />
+               <AddNote showAlert={props.showAlert} />
                {/* Modal for edit note */}
                <button ref={ref} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Launch demo modal
@@ -69,19 +73,19 @@ const Notes = () => {
                               </div>
                               <div className="modal-footer">
                                    <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                   <button disabled={note.etitle.length<3 || note.edescription.length<3 || note.etag.length<1} type="button" className="btn btn-primary" onClick={handleNote}>Update</button>
+                                   <button disabled={note.etitle.length < 3 || note.edescription.length < 3 || note.etag.length < 1} type="button" className="btn btn-primary" onClick={handleNote}>Update</button>
                               </div>
                          </div>
                     </div>
                </div>
                {/* Show all user notes */}
                <div className="row my-3">
-                    <h1>Your Notes</h1>
-                    <div className='container my-2'>
-                         {notes.length===0 && 'You have no notes to display'}
+                    <h3>Your Notes</h3>
+                    <div className='container'>
+                         {notes.length === 0 && 'You have no notes to display'}
                     </div>
                     {notes.map((note) => {
-                         return <NoteItem note={note} updateNote={updateNote} key={note._id} />
+                         return <NoteItem showAlert={props.showAlert} note={note} updateNote={updateNote} key={note._id} />
                     })}
                </div>
           </>

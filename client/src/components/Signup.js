@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 // const dotenv = require('dotenv');
 // dotenv.config();
 
-const Signup = () => {
+const Signup = (props) => {
   const backend = "http://localhost:5000"
   let navigate = useNavigate();
   const [credentials, setcredentials] = useState({ name: "", email: "", password: "", cpassword: "" });
@@ -11,7 +11,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Fetch API to create account
-    const {name, email, password} = credentials;
+    const { name, email, password } = credentials;
     const response = await fetch(`${backend}/api/auth/createuser`, {
       method: "POST",
       headers: {
@@ -25,9 +25,10 @@ const Signup = () => {
       // save the auth-token and redirect
       localStorage.setItem('token', user.authtoken);
       navigate("/");
+      props.showAlert("Account Created Successfully!", "success");
     }
     else {
-      alert("Wrong credentials")
+      props.showAlert("Invalid credentials", "warning");
     }
   }
 
@@ -35,7 +36,7 @@ const Signup = () => {
     setcredentials({ ...credentials, [e.target.name]: e.target.value });
   }
   return (
-    <div className='container'>
+    <div className="container">
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">Name</label>
@@ -59,4 +60,4 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default Signup;
